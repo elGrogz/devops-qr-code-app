@@ -10,8 +10,6 @@ app = FastAPI()
 # Allowing CORS for local testing
 origins = [
     "http://localhost:3000",
-    "http://dev.qr-app.devfun.me"
-	"https://dev.qr-app.devfun.me"
 ]
 
 app.add_middleware(
