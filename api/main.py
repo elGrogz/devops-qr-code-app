@@ -34,8 +34,6 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(mes
 logger = logging.getLogger(__name__)
 for key,value in os.environ.items():
     logger.info(f"{key}: {value}")
-buckets = s3.list_buckets()
-logger.info(buckets)
 
 @app.post("/api/generate-qr/")
 async def generate_qr(url: str):
