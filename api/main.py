@@ -21,7 +21,7 @@ app.add_middleware(
 
 # AWS S3 Configuration
 s3 = boto3.client('s3')
-bucket_name = 'new-bucket666'  # Add your bucket name here
+bucket_name = 'gg-capstone-devops'  # Add your bucket name here
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
 logger = logging.getLogger(__name__)
