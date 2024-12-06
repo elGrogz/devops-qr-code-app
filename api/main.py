@@ -4,6 +4,8 @@ import qrcode
 import boto3
 import logging
 from io import BytesIO
+import os
+from dotenv import load_dotenv
 
 app = FastAPI()
 
@@ -11,6 +13,8 @@ app = FastAPI()
 origins = [
     "http://localhost:3000",
 ]
+
+load_dotenv()
 
 app.add_middleware(
     CORSMiddleware,
@@ -20,14 +24,23 @@ app.add_middleware(
 )
 
 # AWS S3 Configuration
-s3 = boto3.client('s3')
+s3 = boto3.client('s3', 
+                  aws_access_key_id=os.getenv("AWS_ACCESS_KEY"),
+                  aws_secret_access_key=os.getenv("AWS_SECRET_KEY")
+                  )
 bucket_name = 'gg-capstone-devops'  # Add your bucket name here
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
 logger = logging.getLogger(__name__)
+for key,value in os.environ.items():
+    logger.info(f"{key}: {value}")
+# buckets = s3.list_buckets()
+# for bucket in buckets:
+#     print(bucket["Name"])
 
 @app.post("/api/generate-qr/")
 async def generate_qr(url: str):
+    logger.info(f"URL: {url}")
     # Generate QR Code
     qr = qrcode.QRCode(
         version=1,
